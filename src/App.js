@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Wrapper from "components/Wrapper";
+import Section from "components/Section";
+import Container from "components/Container";
+import Profile from "components/Profile";
+import Friends from "components/Friends";
+import StatisticsTable from "components/Statistics";
+import Transactions from "components/Transactions";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = ({ data }) => {
+    return (
+        <Wrapper>
+            <Section>
+                <Container><Profile {...data.user} /></Container>
+            </Section>
+            
+            <Section>
+                <Container>
+                    <StatisticsTable items={data.statistics} />
+                </Container>
+            </Section>
+
+            <Section>
+                <Container><Friends items={data.friends} /></Container>
+            </Section>
+
+            <Section>
+                <Container><Transactions items={data.transactions} /></Container>
+            </Section>
+        </Wrapper>
+    );
 }
-
-export default App;
