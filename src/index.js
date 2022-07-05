@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from "./App";
- 
+import { App } from 'components/App';
 import './index.css';
-
-import user from './data/social-profile.json';
-import statistics from './data/statistics.json';
-import friends from './data/friend-list.json';
-import transactions from './data/transaction-history.json';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './theme';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App data={{ user, statistics, friends, transactions }} />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );

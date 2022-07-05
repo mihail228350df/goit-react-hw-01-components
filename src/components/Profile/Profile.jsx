@@ -1,46 +1,72 @@
 import PropTypes from 'prop-types';
-import s from './Profile.module.css';
 
-export default function Profile(props) {
-    const { avatar, username, tag, location, stats } = props;
+import { Box } from '../box/Box';
+import {
+  StyledAvatar,
+  StyledUserName,
+  StyledText,
+  StyledListInfo,
+  StyledListInfoItem,
+  StyledListInfoItemSpan,
+} from './Profile.styled';
 
-    return <div className={s.profile}>
-        <div className={s.description}>
-          <img
-            src={avatar}
-            alt={username}
-            className={s.avatar}
-          />
-          <p className={s.name}>{username}</p>
-          <p className={s.tag}>@{tag}</p>
-          <p className={s.location}>{location}</p>
-        </div>
+export const Profile = props => {
+  const { username, tag, location, avatar, stats } = props;
+  const { followers, views, likes } = stats;
 
-        <ul className={s.stats}>
-          <li className={s.stats_item}>
-            <span className={s.label}>Followers</span>
-            <span className={s.quantity}>{stats.followers}</span>
-          </li>
-          <li className={s.stats_item}>
-            <span className={s.label}>Views</span>
-            <span className={s.quantity}>{stats.views}</span>
-          </li>
-          <li className={s.stats_item}>
-            <span className={s.label}>Likes</span>
-            <span className={s.quantity}>{stats.likes}</span>
-          </li>
-        </ul>
-      </div>
-}
+  return (
+    <Box
+      ml="auto"
+      mr="auto"
+      width="400px"
+      boxShadow="10px 5px 5px red"
+      className="profile"
+    >
+      <Box as="div" background="#fff" p={4} className="description">
+        <StyledAvatar
+          src={avatar}
+          alt={`${username} avatar`}
+          className="avatar"
+        />
+        <StyledUserName className="name">{username}</StyledUserName>
+        <StyledText className="tag">{`@${tag}`}</StyledText>
+        <StyledText className="location">{location}</StyledText>
+      </Box>
+
+      <StyledListInfo className="stats">
+        <StyledListInfoItem>
+          <StyledListInfoItemSpan className="label">
+            Followers
+          </StyledListInfoItemSpan>
+          <StyledListInfoItemSpan className="quantity">
+            {followers}
+          </StyledListInfoItemSpan>
+        </StyledListInfoItem>
+        <StyledListInfoItem>
+          <StyledListInfoItemSpan className="label">
+            Views
+          </StyledListInfoItemSpan>
+          <StyledListInfoItemSpan className="quantity">
+            {views}
+          </StyledListInfoItemSpan>
+        </StyledListInfoItem>
+        <StyledListInfoItem>
+          <StyledListInfoItemSpan className="label">
+            Likes
+          </StyledListInfoItemSpan>
+          <StyledListInfoItemSpan className="quantity">
+            {likes}
+          </StyledListInfoItemSpan>
+        </StyledListInfoItem>
+      </StyledListInfo>
+    </Box>
+  );
+};
 
 Profile.propTypes = {
-  avatar: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
-  stats: PropTypes.shape({
-    followers: PropTypes.number.isRequired,
-    views: PropTypes.number.isRequired,
-    likes: PropTypes.number.isRequired,
-  }),
-}
+  avatar: PropTypes.string.isRequired,
+  stats: PropTypes.object.isRequired,
+};
